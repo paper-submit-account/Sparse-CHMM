@@ -131,7 +131,6 @@ Dependency/
 output/
 *.bin
 *.pt
-*.sh
 *.chmmdp
 .vscode/
 .idea/
