@@ -44,8 +44,6 @@ CUDA_VISIBLE_DEVICES=$1 python sparse-chmm-train.py \
     --save_dataset \
     --save_dataset_to_data_dir \
     --load_preprocessed_dataset \
-    --load_s1_model \
-    --load_s2_model \
     --nn_lr $NN_LR \
     --s2_lr_decay $S2_LR_DECAY \
     --s3_lr_decay $S3_LR_DECAY \

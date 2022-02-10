@@ -22,9 +22,10 @@ Notice that the `lf_f1` section in the `meta.json` files is computed on the trai
 ## Run
 
 In the `./label_model` directory You can find several `train-<NAME OF DATASET>.sh` files.
-The best model parameters are already preset as default.
+The model parameters presented in the paper are included as default.
 You can run the program by going to the directory `cd ./label_model` and running the bash command `./train-<NAME OF DATASET>.sh [GPU ID]`.
 The results will be saved in `./label_model/output/reg-<NAME OF DATASET>/` as well as the model checkpoints.
+You can also find the log files in `./logs/sparse-chmm-train/`.
 
 You can also run the model with your favorite model parameters by changing the `.sh` files.
 The model parameters are defined in `./label_model/reg_chmm/args.py`.

@@ -330,7 +330,7 @@ class CHMMBaseDataset(torch.utils.data.Dataset):
         -------
         self (MultiSrcNERDataset)
         """
-        assert bert_model is not None, AssertionError('Please specify BERT model to build embeddings')
+        assert bert_model, AssertionError('Please specify BERT model to build embeddings')
         logger.info(f'Building BERT embeddings with {bert_model} on {device}')
         self._embs = build_embeddings(self._text, bert_model, device)
         if save_dir:
