@@ -22,14 +22,14 @@ from utils.math import (
     entity_emiss_o,
     entity_emiss_nondiag
 )
-from .args import RegCHMMConfig
+from .args import SparseCHMMConfig
 
 logger = logging.getLogger(__name__)
 
 
-class RegCHMMMetric(Metric):
+class SparseCHMMMetric(Metric):
     def __init__(self, conc_o2o=None, conc_l2l=None, conc_l2l_batch=None, swxor=None):
-        super(RegCHMMMetric, self).__init__()
+        super(SparseCHMMMetric, self).__init__()
         self.conc_o2o = conc_o2o
         self.conc_l2l = conc_l2l
         self.swxor = swxor
@@ -37,7 +37,7 @@ class RegCHMMMetric(Metric):
 
 
 class TransitionModule(nn.Module):
-    def __init__(self, config: RegCHMMConfig):
+    def __init__(self, config: SparseCHMMConfig):
         super(TransitionModule, self).__init__()
         self._d_hidden = config.d_hidden
 
@@ -65,7 +65,7 @@ class TransitionModule(nn.Module):
 
 
 class DirParamBaseModule(nn.Module):
-    def __init__(self, config: RegCHMMConfig):
+    def __init__(self, config: SparseCHMMConfig):
         super(DirParamBaseModule, self).__init__()
 
         self._n_src = config.n_src
@@ -160,7 +160,7 @@ class DirParamBaseModule(nn.Module):
 
 
 class DirParamExpanModule(nn.Module):
-    def __init__(self, config: RegCHMMConfig):
+    def __init__(self, config: SparseCHMMConfig):
         super(DirParamExpanModule, self).__init__()
 
         self._n_src = config.n_src
@@ -193,7 +193,7 @@ class DirParamExpanModule(nn.Module):
 
 class NeuralModule(nn.Module):
     def __init__(self,
-                 config: RegCHMMConfig):
+                 config: SparseCHMMConfig):
         super(NeuralModule, self).__init__()
 
         self.transition_module = TransitionModule(config)
@@ -250,10 +250,10 @@ class NeuralModule(nn.Module):
         return trans_probs, emiss_probs, (conc_o2o, conc_l2l, scaled_wxor)
 
 
-class RegCHMM(nn.Module):
+class SparseCHMM(nn.Module):
 
-    def __init__(self, config: RegCHMMConfig, state_prior=None):
-        super(RegCHMM, self).__init__()
+    def __init__(self, config: SparseCHMMConfig, state_prior=None):
+        super(SparseCHMM, self).__init__()
 
         self._n_src = config.n_src
         self._d_obs = config.d_obs  # number of possible obs_set
@@ -267,7 +267,7 @@ class RegCHMM(nn.Module):
         self._initialize_model(state_prior=state_prior)
         self.to(self._device)
 
-        self._inter_results = RegCHMMMetric()
+        self._inter_results = SparseCHMMMetric()
 
     @property
     def log_trans(self):
@@ -290,12 +290,12 @@ class RegCHMM(nn.Module):
         return self._state_priors
 
     @property
-    def inter_results(self) -> "RegCHMMMetric":
+    def inter_results(self) -> "SparseCHMMMetric":
         return self._inter_results
 
-    def pop_inter_results(self) -> "RegCHMMMetric":
+    def pop_inter_results(self) -> "SparseCHMMMetric":
         result = self._inter_results
-        self._inter_results = RegCHMMMetric()
+        self._inter_results = SparseCHMMMetric()
         return result
 
     def _initialize_model(self, state_prior: torch.Tensor):

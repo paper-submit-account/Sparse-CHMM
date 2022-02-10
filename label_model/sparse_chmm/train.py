@@ -16,17 +16,17 @@ from slt.chmm.train import CHMMBaseTrainer
 
 from utils.math import get_dataset_wxor
 
-from .args import RegCHMMConfig
-from .model import RegCHMM, RegCHMMMetric
+from .args import SparseCHMMConfig
+from .model import SparseCHMM, SparseCHMMMetric
 from .dataset import CHMMDataset
 from .macro import *
 
 logger = logging.getLogger(__name__)
 
 
-class DirCHMMTrainer(CHMMBaseTrainer):
+class SparseCHMMTrainer(CHMMBaseTrainer):
     def __init__(self,
-                 config: RegCHMMConfig,
+                 config: SparseCHMMConfig,
                  collate_fn=None,
                  training_dataset=None,
                  valid_dataset=None,
@@ -39,7 +39,7 @@ class DirCHMMTrainer(CHMMBaseTrainer):
         )
 
     @property
-    def config(self) -> RegCHMMConfig:
+    def config(self) -> SparseCHMMConfig:
         return self._config
 
     @property
@@ -54,7 +54,7 @@ class DirCHMMTrainer(CHMMBaseTrainer):
         return self
 
     def initialize_model(self):
-        self._model = RegCHMM(
+        self._model = SparseCHMM(
             config=self.config,
             state_prior=self._init_state_prior
         )
@@ -287,7 +287,7 @@ class DirCHMMTrainer(CHMMBaseTrainer):
                 logger.info(f"Epoch: {epoch_i}, Loss: {train_loss}")
             logger.info("Neural module pretrained!")
 
-        valid_results = RegCHMMMetric()
+        valid_results = SparseCHMMMetric()
         best_metric = 0
         metric_buffer = list()
         tolerance_epoch = 0
@@ -395,7 +395,7 @@ class DirCHMMTrainer(CHMMBaseTrainer):
         gc.collect()
         torch.cuda.empty_cache()
 
-        valid_results = RegCHMMMetric()
+        valid_results = SparseCHMMMetric()
         best_metric = 0
         tolerance_epoch = 0
 
@@ -489,7 +489,7 @@ class DirCHMMTrainer(CHMMBaseTrainer):
         # remove any inter results stored in the model
         self._model.pop_inter_results()
 
-        valid_results = RegCHMMMetric()
+        valid_results = SparseCHMMMetric()
         best_metric = 0
         tolerance_epoch = 0
 

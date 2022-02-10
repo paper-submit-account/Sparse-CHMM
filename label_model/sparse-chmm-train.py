@@ -19,17 +19,17 @@ from transformers import (
 from slt.io import set_logging, logging_args
 from slt.chmm.dataset import collate_fn
 
-from label_model.reg_chmm.train import DirCHMMTrainer
-from label_model.reg_chmm.args import RegCHMMArguments, RegCHMMConfig
-from label_model.reg_chmm.dataset import CHMMDataset
-from label_model.reg_chmm.macro import *
+from label_model.sparse_chmm.train import SparseCHMMTrainer
+from label_model.sparse_chmm.args import SparseCHMMArguments, SparseCHMMConfig
+from label_model.sparse_chmm.dataset import CHMMDataset
+from label_model.sparse_chmm.macro import *
 
 logger = logging.getLogger(__name__)
 
 
-def chmm_train(args: RegCHMMArguments):
+def chmm_train(args: SparseCHMMArguments):
     set_seed(args.seed)
-    config = RegCHMMConfig().from_args(args)
+    config = SparseCHMMConfig().from_args(args)
 
     # create output dir if it does not exist
     if not os.path.isdir(args.output_dir):
@@ -93,7 +93,7 @@ def chmm_train(args: RegCHMMArguments):
         valid_dataset.remove_src(MV_LF_NAME, config)
         test_dataset.remove_src(MV_LF_NAME, config)
 
-    chmm_trainer = DirCHMMTrainer(
+    chmm_trainer = SparseCHMMTrainer(
         config=config,
         collate_fn=collate_fn,
         training_dataset=training_dataset,
@@ -119,7 +119,7 @@ if __name__ == '__main__':
         _current_file_name = _current_file_name[:-3]
 
     # --- set up arguments ---
-    parser = HfArgumentParser(RegCHMMArguments)
+    parser = HfArgumentParser(SparseCHMMArguments)
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
         # let's parse it to get our arguments.

@@ -14,7 +14,7 @@ from slt.data import (
     rand_argmax
 )
 
-from .args import RegCHMMConfig
+from .args import SparseCHMMConfig
 from .macro import *
 
 
@@ -28,17 +28,9 @@ class CHMMDataset(CHMMBaseDataset):
                  ents: Optional[List[str]] = None):
         super().__init__(text, embs, obs, lbs, src, ents)
 
-    # mask out two unused properties to speed up the serialization process
-    @property
-    def src_metrics(self):
-        return None
-
-    def _get_src_metrics(self):
-        return None
-
     def load_file(self,
                   file_path: str,
-                  config: Optional[RegCHMMConfig] = None) -> "CHMMDataset":
+                  config: Optional[SparseCHMMConfig] = None) -> "CHMMDataset":
         super().load_file(file_path, config)
 
         if config.add_majority_voting:

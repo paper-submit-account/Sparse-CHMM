@@ -35,9 +35,9 @@ SEED=1
 for SEED in 0 1 2 3 4
 do
 
-OUTPUT_DIR="./output/reg-NCBI/LB-wMV-${SEED}-${CONC_BASE}-${CONC_MAX}-${DIAG_EXP_T1}-${DIAG_EXP_T2}-${NONDIAG_EXP}-${NONDIAG_SPLIT_RATIO}-${NONDIAG_SPLIT_DECAY}/"
+OUTPUT_DIR="./output/NCBI/${SEED}/"
 
-CUDA_VISIBLE_DEVICES=$1 python fdir-chmm-train.py \
+CUDA_VISIBLE_DEVICES=$1 python sparse-chmm-train.py \
     --bert_model_name_or_path $BERT_MODEL \
     --train_path $TRAIN_PATH \
     --valid_path $VALID_PATH \

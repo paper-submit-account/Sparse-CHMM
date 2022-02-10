@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class RegCHMMArguments:
+class SparseCHMMArguments:
     """
     Arguments regarding the training of Neural hidden Markov Model
     """
@@ -223,5 +223,5 @@ class RegCHMMArguments:
 
 
 @dataclass
-class RegCHMMConfig(RegCHMMArguments, CHMMBaseConfig):
+class SparseCHMMConfig(SparseCHMMArguments, CHMMBaseConfig):
     pass

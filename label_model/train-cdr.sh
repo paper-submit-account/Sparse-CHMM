@@ -22,7 +22,7 @@ WXOR_TEMPERATURE=1
 NONDIAG_SPLIT_RATIO=0.1
 NONDIAG_SPLIT_DECAY=1
 
-DIAG_EXP_T1=1
+DIAG_EXP_T1=1.1
 DIAG_EXP_T2=0.9
 NONDIAG_EXP=4
 
@@ -33,9 +33,9 @@ S3_LR_DECAY=1
 for SEED in 0 1 2 3 4
 do
 
-OUTPUT_DIR="./output/reg-CDR/${SEED}-${CONC_BASE}-${CONC_MAX}-${DIAG_EXP_T1}-${DIAG_EXP_T2}-${NONDIAG_EXP}-${NONDIAG_SPLIT_RATIO}-${NONDIAG_SPLIT_DECAY}/"
+OUTPUT_DIR="./output/CDR/${SEED}/"
 
-CUDA_VISIBLE_DEVICES=$1 python fdir-chmm-train.py \
+CUDA_VISIBLE_DEVICES=$1 python sparse-chmm-train.py \
     --bert_model_name_or_path $BERT_MODEL \
     --train_path $TRAIN_PATH \
     --valid_path $VALID_PATH \
