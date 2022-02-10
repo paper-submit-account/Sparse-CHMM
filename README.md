@@ -1,6 +1,6 @@
-# Reg-CHMM
+# Sparse-CHMM
 
-This repo contains the code and data of the Regularized conditional hidden Markov model (Reg-CHMM)
+This repo contains the code and data of the sparse conditional hidden Markov model (Sparse-CHMM)
 
 ## Dependency
 This repo is built with Python 3.9.
